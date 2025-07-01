@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cute BMI Calculator</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #ffe6f0;
+      color: #ff69b4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ff69b4;
+      text-shadow: 2px 2px #ffb6c1;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: 2px solid #ffb6c1;
+      background-color: #fff0f5;
+    }
+
+    button {
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff69b4;
+      animation: fall 2s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>✶𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 𝘁𝗵𝗲 𝗕𝗼𝗱𝘆 𝗠𝗮𝘀𝘀 𝗜𝗻𝗱𝗲𝘅 𝗖𝗮𝗹𝗰𝘂𝗹𝗮𝘁𝗼𝗿✶</h1>
+  <input type="number" id="weight" placeholder="Weight (kg)" />
+  <input type="number" id="height" placeholder="Height (cm)" />
+  <button onclick="calculateBMI()">Measure...(„• ֊ •„)💖</button>
+  <div class="result" id="result"></div>
+
+  <script>
+    const under50 = [
+      "Imagine how heavenly you'd look with a little extra softness... like a fluffy angel with the most huggable curves! (,,>﹏<,,)♡",
+      "Gaining weight means more of you to love—and who wouldn't want that? Let's make you even more luxuriously plush! 🧁💕",
+      "Every pound adds to your radiant glow, making you even more like a real-life goddess! 🌺🍯",
+      "So light and lovely! But imagine being an irresistibly plump marshmallow~ 💗☁️"
+    ];
+
+    const from50to100 = [
+      "Every curve is a masterpiece, and you're the most stunning work of art! 🎀🍑",
+      "You're like a cozy, warm hug—soft, inviting, and absolutely irresistible! 🌸✨",
+      "Your weight isn't just a number—it's a dreamy, squishy paradise that everyone wants to sink into! 🥰💖",
+      "This level of plush should be illegal—it's dangerously adorable! ✨🧸"
+    ];
+
+    const over100 = [
+      "The world needs more of your beautiful curves—don't hold back, darling! 🎀",
+      "Your body is a treasure, and every bit of extra weight makes it even more precious. Keep glowing, lovely! 💖🌼",
+      "You're a radiant mountain of soft magic—majestic and full of sparkle! 🌈💫"
+    ];
+
+    function getRandomMessage(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.backgroundColor = ['#ff69b4', '#ffb6c1', '#ffc0cb'][Math.floor(Math.random() * 3)];
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2500);
+      }
+    }
+
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value) / 100;
+      const bmi = weight / (height * height);
+      let message = `Your BMI is ${bmi.toFixed(2)}.\n`;
+
+      if (weight < 50) {
+        message += getRandomMessage(under50);
+      } else if (weight <= 100) {
+        message += getRandomMessage(from50to100);
+      } else {
+        message += getRandomMessage(over100);
+      }
+
+      document.getElementById('result').textContent = message;
+      launchConfetti();
+    }
+  </script>
+</body>
+</html>
